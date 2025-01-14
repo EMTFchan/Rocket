@@ -11,6 +11,7 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
   selector: 'app-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss'],
+  standalone: false,
 })
 export class ShellComponent {
   constructor(
