@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
@@ -16,11 +16,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
-    HttpClientModule,
     RouterModule,
     TranslateModule.forRoot(),
     IonicModule.forRoot(),
@@ -28,9 +29,8 @@ import { AppRoutingModule } from './app-routing.module';
     ShellModule,
     HomeModule,
     AuthModule,
-    AppRoutingModule, // must be imported as the last module as it contains the fallback route
+    AppRoutingModule,
   ],
-  declarations: [AppComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -46,7 +46,7 @@ import { AppRoutingModule } from './app-routing.module';
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy,
     },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
