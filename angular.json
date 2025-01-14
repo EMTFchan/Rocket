@@ -137,7 +137,6 @@
       }
     }
   },
-  "defaultProject": "demo-app",
   "schematics": {
     "@angular-eslint/schematics:application": {
       "setParserOptionsProject": true
